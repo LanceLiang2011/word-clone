@@ -6,6 +6,7 @@ import GuessInput from "../GuessInput";
 import GuessesList from "../GuessesList";
 import Banner from "../Banner/Banner";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
+import Restart from "../Restart/Restart";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -24,8 +25,13 @@ function Game() {
     if (word.toUpperCase() === answer.toUpperCase()) endGame("won");
     if (nextGuessesList.length >= NUM_OF_GUESSES_ALLOWED) endGame("lost");
   };
+  const handleRestart = () => {
+    setGuessesList([]);
+    setStatus("running");
+  };
   return (
     <>
+      {status !== "running" && <Restart handleRestart={handleRestart} />}
       <GuessesList answer={answer} guessesList={guessesList} />
       {status === "running" && <GuessInput handleAddToList={handleAddToList} />}
       {status !== "running" && (
