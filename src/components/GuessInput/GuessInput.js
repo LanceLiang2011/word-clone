@@ -1,6 +1,6 @@
 import React from "react";
 
-function GuessInput() {
+function GuessInput({ handleAddToList }) {
   const [word, setWord] = React.useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -8,7 +8,7 @@ function GuessInput() {
       alert("Hint: the word has 5 letters.");
       return;
     }
-    console.log({ word });
+    handleAddToList(word);
     setWord("");
   };
 
