@@ -7,7 +7,10 @@ function Banner({ status, answer, times }) {
       {status === "won" && (
         <p>
           <strong>Congratulations!</strong> Got it in{" "}
-          <strong>{times} guesses</strong>.
+          <strong>
+            {times} {times === 1 ? "guess" : "guesses"}
+          </strong>
+          .
         </p>
       )}
       {status === "lost" && (

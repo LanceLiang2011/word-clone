@@ -19,23 +19,17 @@ function Game() {
     const endGame = (result) => {
       setStatus(result);
     };
-    setGuessesList((prev) => [...prev, word]);
-    if (word === answer) endGame("won");
-    if (times >= NUM_OF_GUESSES_ALLOWED - 1) endGame("lost");
+    const nextGuessesList = [...guessesList, word];
+    setGuessesList(nextGuessesList);
+    if (word.toUpperCase() === answer.toUpperCase()) endGame("won");
+    if (nextGuessesList.length >= NUM_OF_GUESSES_ALLOWED) endGame("lost");
   };
-  const times = guessesList.length;
   return (
     <>
       <GuessesList answer={answer} guessesList={guessesList} />
-      {status === "running" && (
-        <GuessInput
-          times={times}
-          answer={answer}
-          handleAddToList={handleAddToList}
-        />
-      )}
+      {status === "running" && <GuessInput handleAddToList={handleAddToList} />}
       {status !== "running" && (
-        <Banner status={status} answer={answer} times={times} />
+        <Banner status={status} answer={answer} times={guessesList.length} />
       )}
     </>
   );
