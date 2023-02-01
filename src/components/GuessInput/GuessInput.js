@@ -1,6 +1,7 @@
 import React from "react";
+import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
-function GuessInput({ handleAddToList }) {
+function GuessInput({ times, answer, handleAddToList, endGame }) {
   const [word, setWord] = React.useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -10,6 +11,8 @@ function GuessInput({ handleAddToList }) {
     }
     handleAddToList(word);
     setWord("");
+    if (word === answer) endGame("won");
+    if (times >= NUM_OF_GUESSES_ALLOWED - 1) endGame("lost");
   };
 
   return (
